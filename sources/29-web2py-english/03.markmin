@@ -1125,7 +1125,7 @@ If you look at the page source you see the HTML returned by the callback:
 Generating an RSS feed of your wiki pages using web2py is easy because web2py includes ``gluon.contrib.rss2``. Just append the following action to the default controller:
 ``
 def news():
-    """generates rss feed form the wiki pages"""
+    """generates rss feed from the wiki pages"""
     response.generic_patterns = ['.rss']
     pages = db().select(db.page.ALL, orderby=db.page.title)
     return dict(
@@ -1595,7 +1595,7 @@ For each application installed you can use the ''site'' page to:
 All the functionality available from the web2py admin site page is also accessible programmatically via the API defined in the module ``gluon/admin.py``. Simply open a python shell and import this module.
 -------
 
-If the Google App Engine SDK is installer the admin ''site'' page shows a button to push your applications to GAE. If ``python-git`` is installed, there is also a button to push your application to Open Shift. To install applications on ``Heroku`` or other hosting system you should look into the "scripts" folder for the appropriate script.
+If the Google App Engine SDK is installed the admin ''site'' page shows a button to push your applications to GAE. If ``python-git`` is installed, there is also a button to push your application to Open Shift. To install applications on ``Heroku`` or other hosting system you should look into the "scripts" folder for the appropriate script.
 
 #### About
 ``about``:inxx ``license``:inxx
