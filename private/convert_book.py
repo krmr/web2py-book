@@ -5,7 +5,7 @@ import shutil
 import os
 
 
-sys.path.append('/Users/massimodipierro/Dropbox/web2py')
+sys.path.append('/cygdrive/c/MyProgs/web2py')
 
 HEADER = r"""
 \documentclass[justified,sixbynine,notoc]{tufte-book}
