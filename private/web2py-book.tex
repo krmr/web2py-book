@@ -818,6 +818,7 @@ Nathan Freeze,
 Niall Sweeny,
 Niccolo Polo,
 Nick Groenke,
+Nick Vargish,
 Nico de Groot,
 Nico Zanferrari,
 Nicolas Bruxer,
@@ -841,6 +842,7 @@ Patrick Breitenbach,
 Pearu Peterson,
 Peli Gergely,
 Pete Hunt,
+Peter Kirchner,
 Phyo Arkar Lwin,
 Pierre Thibault,
 Pieter Muller,
@@ -899,8 +901,6 @@ I particularly thank Anthony, Jonathan, Mariano, Bruno, Vladyslav, Martin, Natha
 \noindent web2py contains code from the following authors, whom I would like to thank:
 
 Guido van Rossum for Python~\cite{python}, Peter Hunt, Richard Gordon, Timothy Farrell for the Rocket~\cite{rocket}  web server, Christopher Dolivet for EditArea~\cite{editarea}, Bob Ippolito for simplejson~\cite{simplejson}, Simon Cusack and Grant Edwards for pyRTF~\cite{pyrtf}, Dalke Scientific Software for pyRSS2Gen~\cite{pyrss2gen}, Mark Pilgrim for feedparser~\cite{feedparser}, Trent Mick for markdown2~\cite{markdown2}, Allan Saddi for fcgi.py, Evan Martin for the Python memcache module~\cite{memcache}, John Resig for jQuery~\cite{jquery}.
-
-The cover of this book was designed by Peter Kirchner at Young Designers.
 
 I thank Helmut Epp (provost of DePaul University), David Miller (Dean of the College of Computing and Digital Media of DePaul University), and Estia Eichten (Member of MetaCryption LLC), for their continuous trust and support.
 
@@ -6411,6 +6411,14 @@ Tasks with no stop\_time set or picked up {\bf BEFORE} stop\_time are {\bf ASSIG
 
 \item {\bf COMPLETED} when all went ok
 \end{itemize}
+
+Values for {\ft start\_time} and {\ft stop\_time} should be datetime objects. To schedule "mytask" to run at 30 seconds from the current time, for example, you would do the following:
+
+\begin{lstlisting}
+from datetime import timedelta as timed
+scheduler.queue_task('mytask',
+    start_time=request.now + timed(seconds=30))
+\end{lstlisting}
 
 Additionally, you can control how many times a task should be repeated (i.e. you need to aggregate some data at specified intervals). To do so, set the {\ft repeats}
 parameter (default = 1 time only, 0 = unlimited). You can influence how many seconds should pass between executions with the {\ft period} parameter (default = 60 seconds).
