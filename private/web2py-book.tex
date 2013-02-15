@@ -6469,6 +6469,7 @@ Summary: you have
        ....
       )
 \end{lstlisting}
+-- since version 2.4.1 if you pass an additional parameter {\ft immediate=True} it will force the main worker to reassign tasks. Until 2.4.1, the worker checks for new tasks every 5 cycles (so, {\ft 5*heartbeats} seconds). If you had an app that needed to check frequently for new tasks, to get a {\it snappy} behaviour you were forced to lower the {\ft heartbeat} parameter, putting the db under pressure for no reason. With {\ft immediate=True} you can force the check for new tasks: it will happen at most as {\ft heartbeat} seconds are passed
 
 The method returns the result of validate\_and\_insert, with the {\ft uuid} of the task you queued (can be the one you passed or the auto-generated one).
 
@@ -6530,6 +6531,17 @@ Hitting ctrl+c is equal to set a worker to {\bf KILL}
 \goodbreak\begin{center}\includegraphics[width=8cm]{/cygdrive/c/MyFiles/eclipse/workspace/Web2py-book/sources/29-web2py-english/images/bd891eed.png}\end{center}
 
 
+There are a few commodity functions since version 2.4.1 (self-explanatory)
+\begin{lstlisting}
+scheduler.disable()
+scheduler.resume()
+scheduler.terminate()
+scheduler.kill()
+\end{lstlisting}
+\noindent each function take an optional parameter, that can be a string or a list, to manage workers based on their {\ft group\_names}. It defaults to the {\ft group\_names} defined in the scheduler istantiation.
+
+An example is better than a thousand words: {\ft scheduler.terminate('high\_prio')} will TERMINATE all the workers that are processing the {\ft high\_prio} tasks, while {\ft scheduler.terminate(['high\_prio', 'low\_prio'])} will terminate all {\ft high\_prio} and {\ft low\_prio} workers.
+\begin{quote}Watch out: if you have a worker processing {\ft high\_prio} and {\ft low\_prio}, {\ft scheduler.terminate('high\_prio')} will terminate the worker alltogether, even if you didn't want to terminate {\ft low\_prio} too.\end{quote}
 Everything that one can do via appadmin one can do programmatically by inserting and updating records in these tables.
 
 Anyway, one should not update records relative to {\ft RUNNING} tasks as this may create an un-expected behavior. The best practice is to queue tasks using the "queue\_task" method.
@@ -12345,6 +12357,10 @@ form.add_button('Back', URL('other_page'))
 \end{lstlisting}
 
 You can add more than one button to form. The arguments of {\ft add\_button} are the value of the button (its text) and the url where to redirect to.
+
+\goodbreak\subsection{More about manipulation of FORMs}
+
+As discussed in the Views chapter, a FORM is an HTML helper. Helpers can be manipulated as Python lists and as dictionaries, which enables run-time creation and modification.
 
 \goodbreak\section{{\ft SQLFORM}}
 
@@ -19324,12 +19340,12 @@ The Apache logs are in:
 
 Download and unzip web2py source on the machine where you installed the web server above.
 
-Install web2py under {\ft /users/www-data/}, for example, and give ownership to user www-data and group www-data. These steps can be performed with the following shell commands:
+Install web2py under {\ft /home/www-data/}, for example, and give ownership to user www-data and group www-data. These steps can be performed with the following shell commands:
 \begin{lstlisting}
-cd /users/www-data/
+cd /home/www-data/
 sudo wget http://web2py.com/examples/static/web2py_src.zip
 sudo unzip web2py_src.zip
-sudo chown -R www-data:www-data /user/www-data/web2py
+sudo chown -R www-data:www-data /home/www-data/web2py
 \end{lstlisting}
 
 To set up web2py with mod\_wsgi, create a new Apache configuration file:
@@ -19342,9 +19358,9 @@ To set up web2py with mod\_wsgi, create a new Apache configuration file:
   ServerName web2py.example.com
   WSGIDaemonProcess web2py user=www-data group=www-data display-name=%{GROUP}
   WSGIProcessGroup web2py
-  WSGIScriptAlias / /users/www-data/web2py/wsgihandler.py
+  WSGIScriptAlias / /home/www-data/web2py/wsgihandler.py
 
-  <Directory /users/www-data/web2py>
+  <Directory /home/www-data/web2py>
     AllowOverride None
     Order Allow,Deny
     Deny from all
@@ -20633,13 +20649,13 @@ In order to use PythonAnywhere you need to create an account, login, then use th
 \goodbreak\begin{center}\includegraphics[width=8cm]{/cygdrive/c/MyFiles/eclipse/workspace/Web2py-book/sources/29-web2py-english/images/pythonanywhere1.png}\end{center}
 
 
-\goodbreak\begin{center}\includegraphics[width=8cm]{/cygdrive/c/MyFiles/eclipse/workspace/Web2py-book/sources/29-web2py-english/images/pythonanywhere1.png}\end{center}
+\goodbreak\begin{center}\includegraphics[width=8cm]{/cygdrive/c/MyFiles/eclipse/workspace/Web2py-book/sources/29-web2py-english/images/pythonanywhere2.png}\end{center}
 
 
 The interface also ask you for an admistrative password.
 
 
-\goodbreak\begin{center}\includegraphics[width=8cm]{/cygdrive/c/MyFiles/eclipse/workspace/Web2py-book/sources/29-web2py-english/images/pythonanywhere1.png}\end{center}
+\goodbreak\begin{center}\includegraphics[width=8cm]{/cygdrive/c/MyFiles/eclipse/workspace/Web2py-book/sources/29-web2py-english/images/pythonanywhere3.png}\end{center}
 
 
 The web2py folder will be created in your user folder.
