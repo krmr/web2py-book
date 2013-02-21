@@ -25,7 +25,7 @@ web2py.exe
 
 On Windows (source web2py distribution), run:
 ``
-c:/Python27/python.exe web2py.exe
+c:/Python27/python.exe web2py.py
 ``:code
 
 ------
