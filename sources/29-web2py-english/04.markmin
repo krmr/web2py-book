@@ -1123,7 +1123,6 @@ In the "generic.html" view this is done using ``{{=response.toolbar()}}``.
 #### Separate sessions
 
 If you are storing sessions on filesystems and you have lots of them, the file system access may become a bottle-neck. One solution is the following:
-If you are storing sessions on filesystem and you have lots of them, the file system access may become a bottle-neck. One solution is the following:
 ``
 session.connect(request, response, separate=True)
 ``:code
