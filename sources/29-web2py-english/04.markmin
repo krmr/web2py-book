@@ -1299,13 +1299,13 @@ It is also possible to specify application, controller and function using named 
 URL(a='a', c='c', f='f')
 ``:code
 
-If the application name a is missing the current app is assumed.
+If the application name ''a'' is missing the current app is assumed.
 
 ``
 URL('c', 'f')
 ``:code
 
-If the controller name is missing, the current one is assumed.
+If the controller name ''c'' is missing, the current one is assumed.
 
 ``
 URL('f')
