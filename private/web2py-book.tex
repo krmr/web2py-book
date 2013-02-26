@@ -4892,13 +4892,13 @@ Also notice the {\ft request.env.wsgi\_*} variables. They are specific to the ws
 
 \item {\ft response.download(request, db)}: a method used to implement the controller function that allows downloading of uploaded files. {\ft request.download} expects the last {\ft arg} in {\ft request.args} to be the encoded filename (i.e., the filename generated at upload time and stored in the upload field). It extracts the upload field name and table name as well as the original filename from the encoded filename. {\ft response.download} takes two optional arguments: {\ft chunk\_size} sets the size in bytes for chunked streaming (defaults to 64K), and {\ft attachments} determines whether the downloaded file should be treated as an attachment or not (default to {\ft True}). Note, {\ft response.download} is specifically for downloading files associated with {\ft db} upload fields. Use {\ft response.stream} (see below) for other types of file downloads and streaming. Also, note that it is not necessary to use {\ft response.download} to access files uploaded to the /static folder -- static files can (and generally should) be accessed directly via URL (e.g., /app/static/files/myfile.pdf).
 
-\item {\ft response.files}: a list of.css,.js, coffee, and.less files required by the page. They will automatically be linked in the head of the standard "layout.html" via the included "web2py\_ajax.html". To include a new CSS, JS, COFFEE, or LESS file, just append it to this list. It will handle duplicates. The order is important.
+\item {\ft response.files}: a list of.css,.js,.coffee, and.less files required by the page. They will automatically be linked in the head of the standard "layout.html" via the included "web2py\_ajax.html". To include a new CSS, JS, COFFEE, or LESS file, just append it to this list. It will handle duplicates. The order is important.
 
 \item {\ft response.include\_files()} generates html head tags to include all {\ft response.files} (used in "views/web2py\_ajax.html").
 
 \item {\ft response.flash}: optional parameter that may be included in the views. Normally used to notify the user about something that happened.
 
-\item {\ft response.headers}: a {\ft dict} for HTTP response headers. Web2py sets some headers by default, including "Content-Length", "Content-Type", and "X-Powered-By" (set equal to web2py). Web2py also sets the "Cache-Control", "Expires", and "Pragma" headers to prevent client-side caching, except for static file requests, for which client-side caching is enabled. The headers that web2py sets can be overwritten or removed, and new headers can be added (e.g., {\ft response.headers['Cache-Control'] = 'private'}). You can remove a header by removing its key from the response.headers dict, e.g.{\ft del response.headers['Custom-Header']}, however web2py's default headers will be re-added just before returning the response. To avoid this behavior, just set the header value to None, e.g. to remove the default Content-Type header, {\ft response.headers['Content-Type'] = None}
+\item {\ft response.headers}: a {\ft dict} for HTTP response headers. Web2py sets some headers by default, including "Content-Length", "Content-Type", and "X-Powered-By" (set equal to web2py). Web2py also sets the "Cache-Control", "Expires", and "Pragma" headers to prevent client-side caching, except for static file requests, for which client-side caching is enabled. The headers that web2py sets can be overwritten or removed, and new headers can be added (e.g., {\ft response.headers['Cache-Control'] = 'private'}). You can remove a header by removing its key from the response.headers dict, e.g. {\ft del response.headers['Custom-Header']}, however web2py's default headers will be re-added just before returning the response. To avoid this behavior, just set the header value to None, e.g. to remove the default Content-Type header, {\ft response.headers['Content-Type'] = None}
 
 \item {\ft response.menu}: optional parameter that may be included in the views, normally used to pass a navigation menu tree to the view. It can be rendered by the MENU helper.
 
@@ -4937,9 +4937,9 @@ Also notice the {\ft request.env.wsgi\_*} variables. They are specific to the ws
   
 \end{lstlisting}
 \begin{itemize}
-\item {\ft response.optimize\_css}: if can be set to "concat,minify,inline" to concatenate, minify and inline the CSS files included by web2py.
+\item {\ft response.optimize\_css}: can be set to "concat,minify,inline" to concatenate, minify and inline the CSS files included by web2py.
 
-\item {\ft response.optimize\_js}: if can be set to "concat,minify,inline" to concatenate, minify and inline the JavaScript files included by web2py.
+\item {\ft response.optimize\_js}: can be set to "concat,minify,inline" to concatenate, minify and inline the JavaScript files included by web2py.
 
 \item {\ft response.view}: the name of the view template that must render the page. This is set by default to:
 \end{itemize}
@@ -5055,7 +5055,6 @@ In the "generic.html" view this is done using {\ft \{\{=response.toolbar()\}\}}.
 \goodbreak\subsection{Separate sessions}
 
 If you are storing sessions on filesystems and you have lots of them, the file system access may become a bottle-neck. One solution is the following:
-If you are storing sessions on filesystem and you have lots of them, the file system access may become a bottle-neck. One solution is the following:
 \begin{lstlisting}
 session.connect(request, response, separate=True)
 \end{lstlisting}
@@ -5228,13 +5227,13 @@ It is also possible to specify application, controller and function using named 
 URL(a='a', c='c', f='f')
 \end{lstlisting}
 
-If the application name a is missing the current app is assumed.
+If the application name {\it a} is missing the current app is assumed.
 
 \begin{lstlisting}
 URL('c', 'f')
 \end{lstlisting}
 
-If the controller name is missing, the current one is assumed.
+If the controller name {\it c} is missing, the current one is assumed.
 
 \begin{lstlisting}
 URL('f')
@@ -5600,7 +5599,7 @@ The placeholder {\ft \%\%\{\}} consists of 3 parts:
 For example:
 
 \begin{itemize}
-\item {\ft \%\%\{word\}} is equivalent to \%\%\{word[0]\} (if no modifiers are used).
+\item {\ft \%\%\{word\}} is equivalent to {\ft \%\%\{word[0]\}} (if no modifiers are used).
 
 \item {\ft \%\%\{word[index]\}} is used when symbols is a tuple. symbols[index] gives us a number used to make a decision on which word form to choose.
 

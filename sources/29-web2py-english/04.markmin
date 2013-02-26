@@ -1674,7 +1674,7 @@ where:
 
 For example:
 
-- ``%%{word}`` is equivalent to %%{word[0]} (if no modifiers are used).
+- ``%%{word}`` is equivalent to ``%%{word[0]}`` (if no modifiers are used).
 - ``%%{word[index]}`` is used when symbols is a tuple. symbols[index] gives us a number used to make a decision on which word form to choose.
 - ``%%{word(key)}`` is used to get the numeric parameter from symbols[key]
 - ``%%{word(number)}`` allows to set a ``number`` directly (e.g.: ``%%{word(%i)}``)
