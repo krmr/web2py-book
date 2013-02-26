@@ -1690,7 +1690,7 @@ For example:
 where ``[0]`` is an item index in symbols tuple.
 
 ``T("blabla %s %s %%{word[1]}", (var1, var2))``
-PS is used for "word" and var2 respectively.
+PS is used for "word" and "var2" respectively.
 
 You can use several ``%%{}`` placeholders with one index:
 
