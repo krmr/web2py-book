@@ -2421,10 +2421,10 @@ Let's see them in order:
 NB: This is useful if you have different workers instances (e.g. on different machines) and you want to assign tasks to a specific worker.
 
 NB2: It's possible to assign a worker more groups, and they can be also all the same, as
-------
 ``['mygroup','mygroup']``. Tasks will be distributed taking into consideration that
 a worker with group_names ``['mygroup','mygroup']`` is able to process the double of the tasks
 a worker with group_names ``['mygroup']`` is.
+------
 - ``heartbeat`` is by default set to 3 seconds. This parameter is the one controlling how often a scheduler will check its status on the ``scheduler_worker`` table and see if there are any **ASSIGNED** tasks to itself to process.
 - ``max_empty_runs`` is 0 by default, that means that the worker will continue to process tasks as soon as they are **ASSIGNED**. If you set this to a value of, let's say, 10, a worker will die automatically if it's **ACTIVE** and no tasks are **ASSIGNED** to it for 10 loops. A loop is when a worker searches for tasks, every 3 seconds (or the set ``heartbeat``)
 - ``discard_results`` is False by default. If set to True, no scheduler_run records will be created.
@@ -2546,7 +2546,7 @@ Here is a more complex complete example:
 def task_add(a,b):
     return a+b
 
-secheduler = Scheduler(db, tasks=dict(demo1=task_add))
+scheduler = Scheduler(db, tasks=dict(demo1=task_add))
 
 scheduler.queue_task('demo1', pvars=dict(a=1,b=2),
                      repeats = 0, period = 180)
@@ -2560,7 +2560,7 @@ A call to ``scheduler.queue_task`` returns the task ``id`` and ``uuid`` of the t
 <Row {'errors': {}, 'id': 1, 'uuid': '08e6433a-cf07-4cea-a4cb-01f16ae5f414'}>
 ``
  
-If there are errors (usually syntax error os input validation errors),
+If there are errors (usually syntax error or input validation errors),
 you get the result of the validation, and id and uuid will be None
 
 ``
@@ -2587,7 +2587,7 @@ In any case, the stdout is captured and also logged into the run record.
 
 Using appadmin, one can check all ``RUNNING`` tasks, the output of ``COMPLETED`` tasks, the error of ``FAILED`` tasks, etc.
 
-The scheduler also creates one more table called "scheduler_worker", which stores the workers' heartbeat and their status. Possible worker statuses are:
+The scheduler also creates one more table called "scheduler_worker", which stores the workers' heartbeat and their status.
 
 ##### Managing processes
 
